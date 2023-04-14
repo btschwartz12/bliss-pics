@@ -11,7 +11,8 @@
     "react": "^18.2.0",
     "react-awesome-button": "^7.0.5",
     "react-dom": "^18.2.0",
-    "react-image-gallery": "^1.2.11",
+    "react-native-awesome-alerts": "^2.0.0",
+    "react-photo-album": "^2.0.4",
     "react-scripts": "^5.0.1",
     "style-loader": "^3.3.2"
   },

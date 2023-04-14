@@ -4,23 +4,10 @@ import React from 'react';
 import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/styles.css';
 import './App.css';
-import ImageGallery from 'react-image-gallery';
 
+import PhotoAlbum from "react-photo-album";
 
-const images = [
-  {
-    original: 'https://picsum.photos/id/1018/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1015/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1019/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1019/250/150/',
-  },
-];
+import photos from './photos';
 
 const styles = {
   bg: {
@@ -43,10 +30,7 @@ const buttonData = [
     link: 'https://btschwartz.com/insta',
     type: 'danger'
   },
-  
-  
-]
-
+];
 
 
 
@@ -57,7 +41,9 @@ const Buttons = () => {
     <div className="button-container">
       {buttonData.map((button, index) => {
         return (
-            <AwesomeButton type={button.type} target="_blank" href={button.link}>{button.text}</AwesomeButton>
+          <>
+            <AwesomeButton key={index} type={button.type} target="_blank" href={button.link}>{button.text}</AwesomeButton>
+          </>
         )
       })}
         
@@ -65,16 +51,14 @@ const Buttons = () => {
   );
 }
 
-
-const App = () => {
+export const App = () => {
 
   return (
     <div className='daylight' style={styles.bg}>
       <div
         className='default'
       >
-          {/* <Buttons /> */}
-          <ImageGallery items={images} />
+          <PhotoAlbum photos={photos} layout="masonry" />
 
       </div>
     </div>
@@ -82,3 +66,9 @@ const App = () => {
 }
 
 export default App;
+
+// export default function App() {
+//     return <PhotoAlbum photos={photos} layout="masonry" />;
+// }
+
+
