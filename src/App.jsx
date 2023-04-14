@@ -1,74 +1,73 @@
-import React from 'react';
+
+import React, { useState } from 'react';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import AwesomeButtom from 'react-awesome-button';
 
 
-import { AwesomeButton } from "react-awesome-button";
-import 'react-awesome-button/dist/styles.css';
-import './App.css';
-
-import PhotoAlbum from "react-photo-album";
-
-import photos from './photos';
 
 const styles = {
-  bg: {
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
   },
-}
-
-const buttonData = [
-  {
-    text: 'Portfolio',
-    link: 'https://btschwartz.com/portfolio/',
-    type: 'primary'
+  button: {
+    margin: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderRadius: 5,
+    backgroundColor: "#AEDEF4",
   },
-  {
-    text: 'Resume',
-    link: 'https://drive.google.com/file/d/1wCPzd7fiAko-PfaizeCkd8ZChVdLK7eA/view?usp=sharing',
-    type: 'secondary'
-  },
-  {
-    text: 'Instagram Clone',
-    link: 'https://btschwartz.com/insta',
-    type: 'danger'
-  },
-];
+  text: {
+    color: '#fff',
+    fontSize: 15
+  }
+};
 
 
 
+export const App = () =>{
+  const [showAlert, setShowAlert] = useState(false);
 
-const Buttons = () => {
-  
-  return (
-    <div className="button-container">
-      {buttonData.map((button, index) => {
-        return (
-          <>
-            <AwesomeButton key={index} type={button.type} target="_blank" href={button.link}>{button.text}</AwesomeButton>
-          </>
-        )
-      })}
-        
-    </div>
-  );
-}
+  const showAlertHandler = () => {
+    setShowAlert(true);
+  };
 
-export const App = () => {
+  const hideAlertHandler = () => {
+    setShowAlert(false);
+  };
 
   return (
-    <div className='daylight' style={styles.bg}>
-      <div
-        className='default'
-      >
-          <PhotoAlbum photos={photos} layout="masonry" />
+    <div style={styles.container}>
+        <div>Bruh Alert</div>
+        <AwesomeButtom type='primary' onPress={showAlertHandler}>
+          <div style={styles.container}>
+            Try me!
+          </div>
+        </AwesomeButtom>
 
-      </div>
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="AwesomeAlert"
+          message="I have a message for you!"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="No, cancel"
+          confirmText="Yes, delete it"
+          confirmButtonColor="#DD6B55"
+          onCancelPressed={hideAlertHandler}
+          onConfirmPressed={hideAlertHandler}
+        />
     </div>
+      
   );
-}
+};
+
+
+
 
 export default App;
-
-// export default function App() {
-//     return <PhotoAlbum photos={photos} layout="masonry" />;
-// }
-
-
