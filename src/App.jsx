@@ -4,11 +4,23 @@ import React from 'react';
 import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/styles.css';
 import './App.css';
+import ImageGallery from 'react-image-gallery';
 
 
-const title = 'Hey!'
-const tagline = 'Welcome to my website! Check out my stuff below.'
-
+const images = [
+  {
+    original: 'https://picsum.photos/id/1018/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1018/250/150/',
+  },
+  {
+    original: 'https://picsum.photos/id/1015/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1015/250/150/',
+  },
+  {
+    original: 'https://picsum.photos/id/1019/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1019/250/150/',
+  },
+];
 
 const styles = {
   bg: {
@@ -39,51 +51,16 @@ const buttonData = [
 
 
 
-const MovingElement = ({ element: Element, ...props }) => {
-  return (
-    <div>
-      <Element {...props} />
-    </div>
-  );
-};
-
-
 const Buttons = () => {
   
   return (
     <div className="button-container">
       {buttonData.map((button, index) => {
         return (
-          <MovingElement key={index} element={() =>
-            <AwesomeButton type={button.type} target="_blank" href={button.link}>{button.text}</AwesomeButton>}>
-          </MovingElement>
+            <AwesomeButton type={button.type} target="_blank" href={button.link}>{button.text}</AwesomeButton>
         )
       })}
         
-    </div>
-  );
-}
-
-const Title = () => {
-  return (
-    <div className="container">
-      <MovingElement type='fadeIn' element={() => 
-        <h1 className='intro'>{title}</h1>}>
-      </MovingElement>      
-    </div>
-  );
-}
-
-
-
-const Tagline = () => {
-  return (
-    <div className="container">
-      <MovingElement type='fadeIn' element={() => 
-        <div className="tagline">
-          {tagline}
-        </div>}>
-      </MovingElement> 
     </div>
   );
 }
@@ -96,13 +73,9 @@ const App = () => {
       <div
         className='default'
       >
-        <main className="App-main">
-          <Title />
-          <Tagline />
-          <Buttons />
+          {/* <Buttons /> */}
+          <ImageGallery items={images} />
 
-
-        </main>
       </div>
     </div>
   );
