@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Serve wsgi:app with gunicorn on port 8004
-gunicorn --bind localhost:8004 wsgi:app --daemon --name landing-page
+gunicorn --bind localhost:8005 wsgi:app --daemon --name slideshow

@@ -3,18 +3,7 @@
   "version": "0.1.0",
   "homepage": "./",
   "private": true,
-  "dependencies": {
-    "@babel/preset-env": "^7.21.4",
-    "babel-loader": "^9.1.2",
-    "css-loader": "^6.7.3",
-    "react": "^18.2.0",
-    "react-awesome-button": "^7.0.5",
-    "react-dom": "^18.2.0",
-    "react-native-awesome-alerts": "^2.0.0",
-    "react-photo-album": "^2.0.4",
-    "react-scripts": "^5.0.1",
-    "style-loader": "^3.3.2"
-  },
+  "dependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

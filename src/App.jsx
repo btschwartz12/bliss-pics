@@ -1,73 +1,72 @@
-
-import React, { useState } from 'react';
-import AwesomeAlert from 'react-native-awesome-alerts';
-import AwesomeButtom from 'react-awesome-button';
+import React from 'react';
 
 
+import { AwesomeButton } from "react-awesome-button";
+import 'react-awesome-button/dist/styles.css';
+import './App.css';
+
+import PhotoAlbum from "react-photo-album";
+
+import toast, { Toaster } from 'react-hot-toast';
+
+import photos from './photos.jsx';
 
 const styles = {
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
+  bg: {
   },
-  button: {
-    margin: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
-    borderRadius: 5,
-    backgroundColor: "#AEDEF4",
-  },
-  text: {
-    color: '#fff',
-    fontSize: 15
-  }
 };
+const generatePhotos = (count) => {
+  let items = [];
+  while (items.length < count) {
+    let randomIndex = Math.floor(Math.random() * photos.length);
+    items.push(photos[randomIndex]);
+  }
+  return items;
+}
 
 
+const Cole = () => toast("Good 'ol Cole");
+const Cole2 = () => toast("Where is wide Cole 2.0?");
 
-export const App = () =>{
-  const [showAlert, setShowAlert] = useState(false);
-
-  const showAlertHandler = () => {
-    setShowAlert(true);
-  };
-
-  const hideAlertHandler = () => {
-    setShowAlert(false);
-  };
+export const App = () => {
 
   return (
-    <div style={styles.container}>
-        <div>Bruh Alert</div>
-        <AwesomeButtom type='primary' onPress={showAlertHandler}>
-          <div style={styles.container}>
-            Try me!
+    <div className='daylight' style={styles.bg}>
+      <div
+        className='default'
+      >
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div className='button-container-left'>
+              <AwesomeButton type='primary' onPress={Cole}>
+                <div style={styles.container}>
+                  Cole
+                </div>
+              </AwesomeButton>
+              <Toaster />
+            </div>
+
+            <div className='button-container-right'>
+              <AwesomeButton type='secondary' onPress={Cole2}>
+                <div style={styles.container}>
+                  Cole 2.0
+                </div>
+              </AwesomeButton>
+              <Toaster />
+            </div>
           </div>
-        </AwesomeButtom>
+          <br></br>
+          <div>
+            <PhotoAlbum 
+            photos={generatePhotos(50)} 
+            layout="masonry" 
+          />
+          </div>
+          
 
-        <AwesomeAlert
-          show={showAlert}
-          showProgress={false}
-          title="AwesomeAlert"
-          message="I have a message for you!"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          showConfirmButton={true}
-          cancelText="No, cancel"
-          confirmText="Yes, delete it"
-          confirmButtonColor="#DD6B55"
-          onCancelPressed={hideAlertHandler}
-          onConfirmPressed={hideAlertHandler}
-        />
+      </div>
     </div>
-      
   );
-};
-
-
-
+}
 
 export default App;
+
