@@ -34,7 +34,7 @@ const generatePhotos = (count) => {
 }
 
 const Cole = () => toast("Good 'ol Cole");
-const Cole2 = () => toast("Where is wide Cole 2.0?");
+const Cole2 = () => toast("Robby is sad");
 
 export const App = () => {
 
@@ -56,7 +56,7 @@ export const App = () => {
             <div className='button-container-right'>
               <AwesomeButton type='secondary' onPress={Cole2}>
                 <div style={styles.container}>
-                  Cole 2.0
+                  Robby
                 </div>
               </AwesomeButton>
               <Toaster />
