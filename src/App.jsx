@@ -17,13 +17,21 @@ const styles = {
 };
 const generatePhotos = (count) => {
   let items = [];
+  let photosLength = photos.length;
+
+  // Use all photos in the original order first
+  for (let i = 0; i < Math.min(count, photosLength); i++) {
+    items.push(photos[i]);
+  }
+
+  // If more photos are needed, start picking randomly
   while (items.length < count) {
-    let randomIndex = Math.floor(Math.random() * photos.length);
+    let randomIndex = Math.floor(Math.random() * photosLength);
     items.push(photos[randomIndex]);
   }
+
   return items;
 }
-
 
 const Cole = () => toast("Good 'ol Cole");
 const Cole2 = () => toast("Where is wide Cole 2.0?");
