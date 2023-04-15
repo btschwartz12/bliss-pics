@@ -6,6 +6,7 @@ import 'react-awesome-button/dist/styles.css';
 import './App.css';
 
 import PhotoAlbum from "react-photo-album";
+import ParticlesBg from 'particles-bg';
 
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -36,6 +37,16 @@ const generatePhotos = (count) => {
 const Cole = () => toast("Good 'ol Cole");
 const Cole2 = () => toast("Robby is sad");
 
+
+const words = ["square"];
+
+
+function getRandomWord() {
+  const randomIndex = Math.floor(Math.random() * words.length);
+  console.log(words[randomIndex]);
+  return words[randomIndex];
+}
+
 export const App = () => {
 
   return (
@@ -43,6 +54,14 @@ export const App = () => {
       <div
         className='default'
       >
+          <div className='bubbles'>
+            <ParticlesBg 
+                type={getRandomWord()} 
+                bg={true} 
+                num={30} 
+                />
+          </div>
+          
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div className='button-container-left'>
               <AwesomeButton type='primary' onPress={Cole}>
@@ -67,6 +86,7 @@ export const App = () => {
             <PhotoAlbum 
             photos={generatePhotos(50)} 
             layout="masonry" 
+            padding={10}
           />
           </div>
           

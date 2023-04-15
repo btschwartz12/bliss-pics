@@ -3,7 +3,14 @@
   "version": "0.1.0",
   "homepage": "./",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "particles-bg": "^2.5.5",
+    "react-awesome-button": "^7.0.5",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "react-photo-album": "^2.0.4",
+    "react-scripts": "^5.0.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
