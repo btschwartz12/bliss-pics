@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 import { AwesomeButton } from "react-awesome-button";
@@ -12,42 +12,51 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import photos from './photos.jsx';
 
+
 const styles = {
   bg: {
   },
 };
-const generatePhotos = (count) => {
-  let items = [];
-  let photosLength = photos.length;
 
-  // Use all photos in the original order first
-  for (let i = 0; i < Math.min(count, photosLength); i++) {
-    items.push(photos[i]);
-  }
-
-  // If more photos are needed, start picking randomly
-  while (items.length < count) {
-    let randomIndex = Math.floor(Math.random() * photosLength);
-    items.push(photos[randomIndex]);
-  }
-
-  return items;
-}
 
 const Cole = () => toast("Good 'ol Cole");
 const Cole2 = () => toast("Robby is sad");
 
 
-const words = ["square"];
 
-
-function getRandomWord() {
-  const randomIndex = Math.floor(Math.random() * words.length);
-  console.log(words[randomIndex]);
-  return words[randomIndex];
-}
 
 export const App = () => {
+
+  // const [photos, setPhotos] = useState([]);
+
+  // useEffect(() => {
+  //   const url = "https://btschwartz.com/api/v1/pics";
+  
+  //   fetch(url, { credentials: "same-origin" })
+  //     .then((response) => {
+  //       if (!response.ok) throw Error(response.statusText);
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       if (data.photo_objects) {
+  //         const fetchedPhotos = data.photo_objects
+  //           .filter((photo) => photo.width && photo.height)
+  //           .map((photo) => {
+  //             return {
+  //               src: photo.src,
+  //               width: photo.width,
+  //               height: photo.height,
+  //             };
+  //           });
+  //         setPhotos(fetchedPhotos);
+  //       } else {
+  //         console.error("Error fetching photos: photo_objects property is missing");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching photos:", error);
+  //     });
+  // }, []);
 
   return (
     <div className='daylight' style={styles.bg}>
@@ -56,7 +65,7 @@ export const App = () => {
       >
           <div className='bubbles'>
             <ParticlesBg 
-                type={getRandomWord()} 
+                type='square' 
                 bg={true} 
                 num={30} 
                 />
@@ -82,15 +91,15 @@ export const App = () => {
             </div>
           </div>
           <br></br>
-          <div>
+          {photos.length > 0 && (
+            <div>
             <PhotoAlbum 
-            photos={generatePhotos(50)} 
+            photos={photos}
             layout="masonry" 
             padding={10}
-          />
-          </div>
-          
-
+            />
+            </div>
+          )}
       </div>
     </div>
   );
