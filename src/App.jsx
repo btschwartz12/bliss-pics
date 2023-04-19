@@ -41,7 +41,7 @@ export const App = () => {
           const fetchedPhotos = data.photo_objects
             .map((photo) => {
               return {
-                src: photo.url,
+                src: photo.fetchUrl,
                 width: photo.width,
                 height: photo.height,
               };
