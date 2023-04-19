@@ -10,7 +10,6 @@ import ParticlesBg from 'particles-bg';
 
 import toast, { Toaster } from 'react-hot-toast';
 
-import photos from './photos.jsx';
 
 
 const styles = {
@@ -27,36 +26,36 @@ const Cole2 = () => toast("Robby is sad");
 
 export const App = () => {
 
-  // const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState([]);
 
-  // useEffect(() => {
-  //   const url = "https://btschwartz.com/api/v1/pics";
+  useEffect(() => {
+    const url = "https://btschwartz.com/api/v1/pics";
   
-  //   fetch(url, { credentials: "same-origin" })
-  //     .then((response) => {
-  //       if (!response.ok) throw Error(response.statusText);
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       if (data.photo_objects) {
-  //         const fetchedPhotos = data.photo_objects
-  //           .filter((photo) => photo.width && photo.height)
-  //           .map((photo) => {
-  //             return {
-  //               src: photo.src,
-  //               width: photo.width,
-  //               height: photo.height,
-  //             };
-  //           });
-  //         setPhotos(fetchedPhotos);
-  //       } else {
-  //         console.error("Error fetching photos: photo_objects property is missing");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching photos:", error);
-  //     });
-  // }, []);
+    fetch(url, { credentials: "same-origin" })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        if (data.photo_objects) {
+          const fetchedPhotos = data.photo_objects
+            .map((photo) => {
+              return {
+                src: photo.url,
+                width: photo.width,
+                height: photo.height,
+              };
+            });
+          console.log(fetchedPhotos);
+          setPhotos(fetchedPhotos);
+        } else {
+          console.error("Error fetching photos: photo_objects property is missing");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching photos:", error);
+      });
+  }, []);
 
   return (
     <div className='daylight' style={styles.bg}>

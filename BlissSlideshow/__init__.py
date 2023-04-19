@@ -5,6 +5,8 @@ app = Flask(__name__)
 
 app.static_folder = 'static'
 
+app.config.from_object('BlissSlideshow.config')
+
 
 @app.route("/pics/static/<path:path>")
 def serve_static(path):
