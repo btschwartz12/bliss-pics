@@ -20,10 +20,8 @@ const styles = {
 };
 
 
-const Cole = () => toast("Good 'ol Cole");
-const Cole2 = () => toast("Robby is sad");
+const Cole = () => toast("This is a spot where I put some pictures of my dogs. I made it so you can upload your own, but please, nothing inappropriate.");
 
-const DEBUG =  false;
 
 
 export const App = () => {
@@ -52,36 +50,7 @@ export const App = () => {
                 height: photo.height,
               };
             });
-          console.log(fetchedPhotos);
           setPhotos(fetchedPhotos);
-
-
-          if (DEBUG) {
-            // change photos to a list of local images
-            const localPhotos = [
-              {
-                src: '/images/1.jpg',
-                width: 300,
-                height: 600,
-              },
-              {
-                src: '/images/2.jpg',
-                width: 300,
-                height: 600,
-              },
-              {
-                src: '/images/3.jpg',
-                width: 300,
-                height: 600,
-              },
-              {
-                src: '/images/4.jpg',
-                width: 300,
-                height: 600,
-              },
-            ];
-            setPhotos(localPhotos);
-          }
 
         } else {
           console.error("Error fetching photos: photo_objects property is missing");
@@ -126,7 +95,7 @@ export const App = () => {
             <div className='button-container-left'>
               <AwesomeButton type='primary' onPress={Cole}>
                 <div style={styles.container}>
-                  Cole
+                  What?
                 </div>
               </AwesomeButton>
               <Toaster />
@@ -134,7 +103,7 @@ export const App = () => {
 
             <label className="button-container-right" htmlFor="fileUpload">
               <AwesomeButton type="secondary" onPress={() => setModalShow(true)}>
-                <div style={styles.container}>Robby</div>
+                <div style={styles.container}>Upload</div>
               </AwesomeButton>
             </label>
 
