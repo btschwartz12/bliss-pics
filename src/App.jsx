@@ -10,6 +10,8 @@ import ParticlesBg from 'particles-bg';
 
 import toast, { Toaster } from 'react-hot-toast';
 
+import FilePickerModal from './FilePickerModal.jsx';
+
 
 
 const styles = {
@@ -21,7 +23,7 @@ const styles = {
 const Cole = () => toast("Good 'ol Cole");
 const Cole2 = () => toast("Robby is sad");
 
-
+const DEBUG =  false;
 
 
 export const App = () => {
@@ -29,6 +31,10 @@ export const App = () => {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     const url = "https://btschwartz.com/api/v1/pics";
   
     fetch(url, { credentials: "same-origin" })
@@ -48,6 +54,35 @@ export const App = () => {
             });
           console.log(fetchedPhotos);
           setPhotos(fetchedPhotos);
+
+
+          if (DEBUG) {
+            // change photos to a list of local images
+            const localPhotos = [
+              {
+                src: '/images/1.jpg',
+                width: 300,
+                height: 600,
+              },
+              {
+                src: '/images/2.jpg',
+                width: 300,
+                height: 600,
+              },
+              {
+                src: '/images/3.jpg',
+                width: 300,
+                height: 600,
+              },
+              {
+                src: '/images/4.jpg',
+                width: 300,
+                height: 600,
+              },
+            ];
+            setPhotos(localPhotos);
+          }
+
         } else {
           console.error("Error fetching photos: photo_objects property is missing");
         }
@@ -55,7 +90,17 @@ export const App = () => {
       .catch((error) => {
         console.error("Error fetching photos:", error);
       });
-  }, []);
+  };
+
+
+
+
+  const [modalShow, setModalShow]  = useState(false);
+
+  const handleImageSubmit = (submitMessage) => {
+    console.log("Submitting image:", submitMessage);
+    fetchData();
+  };
 
   return (
     <div className='daylight' style={styles.bg}>
@@ -64,11 +109,18 @@ export const App = () => {
       >
           <div className='bubbles'>
             <ParticlesBg 
-                type='square' 
+                type='circle' 
                 bg={true} 
-                num={30} 
+                num={2} 
                 />
           </div>
+
+          <FilePickerModal
+            show={modalShow}
+            handleClose={() => setModalShow(false)}
+            onHide={() => setModalShow(false)}
+            onSubmit={handleImageSubmit}
+          />
           
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div className='button-container-left'>
@@ -80,14 +132,12 @@ export const App = () => {
               <Toaster />
             </div>
 
-            <div className='button-container-right'>
-              <AwesomeButton type='secondary' onPress={Cole2}>
-                <div style={styles.container}>
-                  Robby
-                </div>
+            <label className="button-container-right" htmlFor="fileUpload">
+              <AwesomeButton type="secondary" onPress={() => setModalShow(true)}>
+                <div style={styles.container}>Robby</div>
               </AwesomeButton>
-              <Toaster />
-            </div>
+            </label>
+
           </div>
           <br></br>
           {photos.length > 0 && (
