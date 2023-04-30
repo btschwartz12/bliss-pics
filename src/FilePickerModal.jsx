@@ -10,6 +10,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
     const [accessToken, setAccessToken] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorAlert, setErrorAlert] = useState(null);
+    const [name, setName] = useState('');
 
     const onClose = () => {
         setSelectedFile(null);
@@ -25,6 +26,8 @@ function ImagePicker({ show, handleClose, onSubmit }) {
         const formData = new FormData();
         formData.append('image', selectedFile);
         formData.append('access_token', accessToken); // Append the access token to formData
+        formData.append('author', name);
+
 
         fetch('https://btschwartz.com/api/v1/pics/upload', {
             method: 'POST',
@@ -47,7 +50,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                 if (error.message === 'Forbidden') {
                     setErrorAlert('Access denied. Please check your access token.');
                 } else {
-                    setErrorAlert('Image too large or error uploading image');
+                    setErrorAlert('Error uploading image (is the file too big?)');
                 }
                 console.error('Error:', error);
             })
@@ -62,6 +65,10 @@ function ImagePicker({ show, handleClose, onSubmit }) {
 
     const handleAccessTokenChange = (event) => {
         setAccessToken(event.target.value);
+    };
+
+    const handleNameChange = (event) => {
+        setName(event.target.value);
     };
 
     return (
@@ -81,6 +88,15 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                             onChange={handleFileChange}
                         />
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="name">
+                        <Form.Label>Name:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={name}
+                            onChange={handleNameChange}
+                            required
+                        />
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="accessToken">
                         <Form.Label>Access Token:</Form.Label>
                         <Form.Control
@@ -98,7 +114,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                 <Button
                     variant={isSubmitting ? "secondary" : "primary"}
                     onClick={handleSubmit}
-                    disabled={!selectedFile || isSubmitting}
+                    disabled={!selectedFile || !name || isSubmitting}
                     >
                     {isSubmitting ? 'Submitting...' : 'Submit'}
                 </Button>
