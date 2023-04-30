@@ -7,12 +7,13 @@ import './bootstrap.css';
 
 function ImagePicker({ show, handleClose, onSubmit }) {
     const [selectedFile, setSelectedFile] = useState(null);
+    const [accessToken, setAccessToken] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorAlert, setErrorAlert] = useState(null);
 
-
     const onClose = () => {
         setSelectedFile(null);
+        setAccessToken('');
         setIsSubmitting(false);
         setErrorAlert(null);
         handleClose();
@@ -23,6 +24,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
         setErrorAlert(null);
         const formData = new FormData();
         formData.append('image', selectedFile);
+        formData.append('access_token', accessToken); // Append the access token to formData
 
         fetch('https://btschwartz.com/api/v1/pics/upload', {
             method: 'POST',
@@ -31,6 +33,8 @@ function ImagePicker({ show, handleClose, onSubmit }) {
             .then((response) => {
                 if (response.ok) {
                     return response.json();
+                } else if (response.status === 403) { // Check for a 403 status
+                    throw Error('Forbidden');
                 } else {
                     throw Error(response.statusText);
                 }
@@ -40,7 +44,11 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                 onClose();
             })
             .catch((error) => {
-                setErrorAlert('Image too large or error uploading image')
+                if (error.message === 'Forbidden') {
+                    setErrorAlert('Access denied. Please check your access token.');
+                } else {
+                    setErrorAlert('Image too large or error uploading image');
+                }
                 console.error('Error:', error);
             })
             .finally(() => {
@@ -50,6 +58,10 @@ function ImagePicker({ show, handleClose, onSubmit }) {
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
+    };
+
+    const handleAccessTokenChange = (event) => {
+        setAccessToken(event.target.value);
     };
 
     return (
@@ -69,6 +81,14 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                             onChange={handleFileChange}
                         />
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="accessToken">
+                        <Form.Label>Access Token:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={accessToken}
+                            onChange={handleAccessTokenChange}
+                        />
+                    </Form.Group>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
@@ -79,12 +99,12 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                     variant={isSubmitting ? "secondary" : "primary"}
                     onClick={handleSubmit}
                     disabled={!selectedFile || isSubmitting}
-                >
+                    >
                     {isSubmitting ? 'Submitting...' : 'Submit'}
                 </Button>
             </Modal.Footer>
         </Modal>
-        </>
+    </>
     );
 }
 
