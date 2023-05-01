@@ -12,6 +12,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import FilePickerModal from './FilePickerModal.jsx';
 import Tooltip from '@mui/material/Tooltip';
+import DeleteFileModal from './DeleteFileModal.jsx';
 
 
 const styles = {
@@ -25,10 +26,10 @@ const Cole = () => toast("This is a spot where I put some pictures of my dogs. I
 
 
 const trimTimestamp = (timestamp) => {
-  // takes a timestamp in the form Sun, 30 Apr 2023 23:08:33 GMT
-  // and just returns the date, no day of week
+  
   const date = new Date(timestamp);
-  return date.toDateString().slice(4);
+  // prints the date and time in EST
+  return date.toLocaleString('en-US', { timeZone: 'America/New_York' }) + ' EST';
 };
 
 
@@ -50,7 +51,6 @@ export const App = () => {
       })
       .then((data) => {
         if (data.photo_objects) {
-          console.log("Fetched photos:", data.photo_objects);
           const fetchedPhotos = data.photo_objects
             .map((photo) => {
               
@@ -81,10 +81,23 @@ export const App = () => {
 
 
   const [modalShow, setModalShow]  = useState(false);
+  const [deleteModalShow, setDeleteModalShow]  = useState(false);
+  const [clickedPhoto, setClickedPhoto] = useState(null);
 
   const handleImageSubmit = (submitMessage) => {
     console.log("Submitting image:", submitMessage);
     fetchData();
+  };
+
+  const handleImageDelete = (deleteMessage) => {
+    console.log("Deleting image:", deleteMessage);
+    fetchData();
+  };
+
+  const handleImageClick = (photo, event) => {
+    event.preventDefault(); // Add this line
+    setClickedPhoto(photo);
+    setDeleteModalShow(true);
   };
 
   return (
@@ -105,6 +118,14 @@ export const App = () => {
             handleClose={() => setModalShow(false)}
             onHide={() => setModalShow(false)}
             onSubmit={handleImageSubmit}
+          />
+
+          <DeleteFileModal
+            show={deleteModalShow}
+            handleClose={() => setDeleteModalShow(false)}
+            onHide={() => setDeleteModalShow(false)}
+            onSubmit={handleImageDelete}
+            photo={clickedPhoto}
           />
           
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -133,9 +154,10 @@ export const App = () => {
                 title={photo.metadata.author + ' - ' + photo.metadata.timestamp + ' (' + photo.metadata.id + ')'}
                 followCursor
               >
-              <a href={photo.href} style={wrapperStyle} target="_blank" rel="noreferrer noopener">
-                  {renderDefaultPhoto({ wrapped: true })}
-              </a>
+                <a href={photo.href} style={wrapperStyle} target="_blank" rel="noreferrer noopener"
+                  onClick={(event) => handleImageClick(photo, event)}> 
+                    {renderDefaultPhoto({ wrapped: true })}
+                </a>
               </Tooltip>
             )}
             photos={photos}
