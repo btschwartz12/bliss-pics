@@ -75,7 +75,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
         <>
         <Modal show={show} onHide={onClose} centered scrollable>
             <Modal.Header closeButton>
-                <Modal.Title>Select an image</Modal.Title>
+                <Modal.Title>Picture Upload</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {errorAlert && <Alert variant="danger">{errorAlert}</Alert>}

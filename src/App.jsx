@@ -11,7 +11,7 @@ import ParticlesBg from 'particles-bg';
 import toast, { Toaster } from 'react-hot-toast';
 
 import FilePickerModal from './FilePickerModal.jsx';
-
+import Tooltip from '@mui/material/Tooltip';
 
 
 const styles = {
@@ -20,8 +20,16 @@ const styles = {
 };
 
 
+
 const Cole = () => toast("This is a spot where I put some pictures of my dogs. I made it so you can upload your own, but please, nothing inappropriate.");
 
+
+const trimTimestamp = (timestamp) => {
+  // takes a timestamp in the form Sun, 30 Apr 2023 23:08:33 GMT
+  // and just returns the date, no day of week
+  const date = new Date(timestamp);
+  return date.toDateString().slice(4);
+};
 
 
 export const App = () => {
@@ -42,12 +50,19 @@ export const App = () => {
       })
       .then((data) => {
         if (data.photo_objects) {
+          console.log("Fetched photos:", data.photo_objects);
           const fetchedPhotos = data.photo_objects
             .map((photo) => {
+              
               return {
                 src: photo.fetchUrl,
                 width: photo.width,
                 height: photo.height,
+                metadata: {
+                  id: photo.id,
+                  author: photo.author,
+                  timestamp: trimTimestamp(photo.timestamp),
+                }
               };
             });
           setPhotos(fetchedPhotos);
@@ -60,6 +75,7 @@ export const App = () => {
         console.error("Error fetching photos:", error);
       });
   };
+
 
 
 
@@ -112,6 +128,16 @@ export const App = () => {
           {photos.length > 0 && (
             <div>
             <PhotoAlbum 
+            renderPhoto={({ photo, wrapperStyle, renderDefaultPhoto }) => (
+              <Tooltip 
+                title={photo.metadata.author + ' - ' + photo.metadata.timestamp + ' (' + photo.metadata.id + ')'}
+                followCursor
+              >
+              <a href={photo.href} style={wrapperStyle} target="_blank" rel="noreferrer noopener">
+                  {renderDefaultPhoto({ wrapped: true })}
+              </a>
+              </Tooltip>
+            )}
             photos={photos}
             layout="masonry" 
             padding={10}
