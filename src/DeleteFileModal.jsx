@@ -27,7 +27,7 @@ function DeleteFileModal({ show, handleClose, onSubmit, photo }) {
         formData.append('id', photo.metadata.id);
 
 
-        fetch('http://107.173.251.101:8000/api/v1/pics/delete', {
+        fetch('https://btschwartz.com/api/v1/pics/delete', {
             method: 'POST',
             body: formData,
         })
