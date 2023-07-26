@@ -25,11 +25,9 @@ function ImagePicker({ show, handleClose, onSubmit }) {
         setErrorAlert(null);
         const formData = new FormData();
         formData.append('image', selectedFile);
-        formData.append('access_token', accessToken); // Append the access token to formData
-        formData.append('author', name);
 
 
-        fetch('https://btschwartz.com/api/v1/pics/upload', {
+        fetch('https://btschwartz.com/api/v1/pics/', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
@@ -91,7 +89,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                             onChange={handleFileChange}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="name">
+                    {/* <Form.Group className="mb-3" controlId="name">
                         <Form.Label>Name:</Form.Label>
                         <Form.Control
                             type="text"
@@ -99,7 +97,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                             onChange={handleNameChange}
                             required
                         />
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group className="mb-3" controlId="accessToken">
                         <Form.Label>Access Token:</Form.Label>
                         <Form.Control
@@ -117,7 +115,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
                 <Button
                     variant={isSubmitting ? "secondary" : "primary"}
                     onClick={handleSubmit}
-                    disabled={!selectedFile || !name || isSubmitting}
+                    disabled={!selectedFile || isSubmitting}
                     >
                     {isSubmitting ? 'Submitting...' : 'Submit'}
                 </Button>

@@ -131,11 +131,13 @@ export const App = () => {
           
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div className='button-container-left'>
-              <AwesomeButton type='primary' onPress={Cole}>
-                <div style={styles.container}>
-                  What?
-                </div>
-              </AwesomeButton>
+              
+                <a style={styles.container} target="_blank" href="https://btschwartz.com/api/v1/auth/login" >
+                <AwesomeButton type='primary' >
+                  Get Access Token
+                </AwesomeButton>
+                </a>
+              
               <Toaster />
             </div>
 

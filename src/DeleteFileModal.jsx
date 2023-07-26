@@ -22,14 +22,12 @@ function DeleteFileModal({ show, handleClose, onSubmit, photo }) {
     const handleSubmit = () => {
         setIsSubmitting(true);
         setErrorAlert(null);
-        const formData = new FormData();
-        formData.append('access_token', accessToken); // Append the access token to formData
-        formData.append('id', photo.metadata.id);
 
-
-        fetch('https://btschwartz.com/api/v1/pics/delete', {
-            method: 'POST',
-            body: formData,
+        fetch('https://btschwartz.com/api/v1/pics/' + photo.metadata.id, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
         })
             .then((response) => {
                 console.log(response)
@@ -81,7 +79,7 @@ function DeleteFileModal({ show, handleClose, onSubmit, photo }) {
                 {errorAlert && <Alert variant="danger">{errorAlert}</Alert>}
                 <Form>
                     <Form.Group className="mb-3" controlId="accessToken">
-                        <Form.Label>Token (for deleting):</Form.Label>
+                        <Form.Label>Token:</Form.Label>
                         <Form.Control
                             type="text"
                             value={accessToken}
