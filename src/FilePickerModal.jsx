@@ -31,6 +31,9 @@ function ImagePicker({ show, handleClose, onSubmit }) {
 
         fetch('https://btschwartz.com/api/v1/pics/upload', {
             method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
             body: formData,
         })
             .then((response) => {

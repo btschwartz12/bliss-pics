@@ -50,6 +50,7 @@ export const App = () => {
         return response.json();
       })
       .then((data) => {
+        console.log("Fetched photos:", data);
         if (data.photo_objects) {
           const fetchedPhotos = data.photo_objects
             .map((photo) => {
