@@ -12,7 +12,11 @@ app.config.from_object('BlissSlideshow.config')
 def serve_static(path):
     return send_from_directory('static', path)
 
-@app.route('/pics/')
+@app.route('/pics')
+def index():
+    return render_template('index.html')
+
+@app.route('/pics/other')
 def index():
     return render_template('index.html')
 
