@@ -12,7 +12,8 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/other" element={<OtherPage />} />
+      <Route path="/pics/other" element={<OtherPage />} />
+      <Route path="/pics" element={<App tab="home" />} />
       <Route path="/" element={<App tab="home" />} />
     </Routes>
   </BrowserRouter>
