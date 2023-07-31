@@ -56,7 +56,7 @@ export const App = () => {
             .map((photo) => {
               
               return {
-                src: photo.fetchUrl,
+                src: 'https://btschwartz.com' + photo.fetchUrl,
                 width: photo.width,
                 height: photo.height,
                 metadata: {
