@@ -17,7 +17,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/pics/other')
-def index():
+def bruh():
     return render_template('index.html')
 
 
