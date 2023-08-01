@@ -111,15 +111,15 @@ const Example = () => {
                 style={{ width: '100%', margin: '10px 0' }}>
                 Enter Token
             </Button>
-            {images &&
-            <Slide>
-                {images.map((image, index) => (
-                    <div className="each-slide-effect" key={index}>
-                        <img src={image} alt={`slide-${index}`} style={{ width: '100%', height: 'auto' }} />
-                    </div>
-                ))}
-            </Slide>
-            }   
+            {images.length > 0 &&
+                <Slide key={images.length}>
+                    {images.map((image, index) => (
+                        <div className="each-slide-effect" key={index}>
+                            <img src={image} alt={`slide-${index}`} style={{ width: '100%', height: 'auto' }} />
+                        </div>
+                    ))}
+                </Slide>
+            }
         </>
     );
 };
