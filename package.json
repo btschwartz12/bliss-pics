@@ -9,12 +9,13 @@
     "@mui/material": "^5.12.2",
     "particles-bg": "^2.5.5",
     "react-awesome-button": "^7.0.5",
-    "react-bootstrap": "^2.7.4",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-photo-album": "^2.0.4",
     "react-router-dom": "^6.14.2",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "react-slideshow-image": "^4.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

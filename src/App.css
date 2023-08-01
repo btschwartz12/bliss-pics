@@ -507,3 +507,15 @@ body {
   z-index: -1; /* set a lower z-index to put it in the background */
   opacity: 0.5; /* add an opacity value to make it semi-transparent */
 }
+
+
+.each-slide-effect > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center; /* To center the image */
+  width: 100%;
+  padding-bottom: 56.25%; /* This will maintain a 16:9 aspect ratio; adjust as needed */
+}
+
