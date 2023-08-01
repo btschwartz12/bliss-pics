@@ -12,7 +12,7 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/pics/other" element={<OtherPage />} />
+      <Route path="/pics/f1" element={<OtherPage />} />
       <Route path="/pics" element={<App tab="home" />} />
       <Route path="/" element={<App tab="home" />} />
     </Routes>

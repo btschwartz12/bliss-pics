@@ -6,6 +6,30 @@ import './App.css';
 import { Container, Button, Form, Spinner, Modal, Row } from 'react-bootstrap';
 
 
+const ImageSlide = ({ file, token, index }) => {
+    const [imageSrc, setImageSrc] = useState(null);
+  
+    useEffect(() => {
+      fetch(`https://btschwartz.com/api/v1/pics/image/${file}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+      .then(response => response.blob())
+      .then(blob => URL.createObjectURL(blob))
+      .then(imageUrl => setImageSrc(imageUrl))
+      .catch(error => console.log(error));
+    }, [file, token]);
+  
+    return (
+      <div className="each-slide-effect">
+        <p style={{color: 'white', textAlign: 'center'}}>{index + 1}</p> {/* Number of the picture */}
+        {imageSrc && <img src={imageSrc} alt={`slide-${index}`} style={{ width: '100%', height: 'auto' }} />}
+      </div>
+    );
+  };
+
 
 const Example = () => {
     // const images2 = [
@@ -44,24 +68,9 @@ const Example = () => {
         })
         .then(data => {
             if (data.files) {
-                Promise.all(data.files.map(file => {
-                    return fetch(`https://btschwartz.com/api/v1/pics/image/${file}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    })
-                    .then(response => {
-                        return response.blob()
-                    })
-                    .then(blob => URL.createObjectURL(blob));
-                }))
-                .then(imageUrls => {
-                    setImages(imageUrls);
-                    console.log(imageUrls);
-                    setLoading(false);
-                    handleModalClose();
-                });
+                setImages(data.files);
+                setLoading(false);
+                handleModalClose();
             }
         })
         .catch(error => {
@@ -112,13 +121,11 @@ const Example = () => {
                 Enter Token
             </Button>
             {images.length > 0 &&
-                <Slide key={images.length}>
-                    {images.map((image, index) => (
-                        <div className="each-slide-effect" key={index}>
-                            <img src={image} alt={`slide-${index}`} style={{ width: '100%', height: 'auto' }} />
-                        </div>
-                    ))}
-                </Slide>
+                <Slide transitionDuration={100}>
+                {images.map((file, index) => (
+                  <ImageSlide key={index} file={file} token={token} index={index} />
+                ))}
+              </Slide>
             }
         </>
     );

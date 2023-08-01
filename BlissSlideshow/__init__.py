@@ -17,8 +17,8 @@ def serve_static(path):
 def index():
     return render_template('index.html')
 
-@app.route('/pics/other')
-@app.route('/pics/other/')
+@app.route('/pics/f1')
+@app.route('/pics/f1/')
 def bruh():
     return render_template('index.html')
 
