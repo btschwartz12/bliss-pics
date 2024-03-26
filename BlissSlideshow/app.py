@@ -1,11 +1,13 @@
 from flask import Flask, render_template, send_from_directory
-
 app = Flask(__name__)
 
+class Config:
+    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+    MAX_CONTENT_LENGTH = 32 * 2048 * 2048
 
 app.static_folder = 'static'
 
-app.config.from_object('BlissSlideshow.config')
+app.config.from_object(Config)
 
 
 @app.route("/pics/static/<path:path>")
@@ -17,10 +19,7 @@ def serve_static(path):
 def index():
     return render_template('index.html')
 
-@app.route('/pics/f1')
-@app.route('/pics/f1/')
-def bruh():
-    return render_template('index.html')
+
 
 
 

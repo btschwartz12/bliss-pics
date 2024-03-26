@@ -1,10 +1,11 @@
 const path = require('path')
 const webpack = require('webpack');
 
+
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.jsx'),
   output: {
-    path: path.resolve(__dirname, 'BlissSlideshow', 'static', 'js'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
   mode: "development",
@@ -35,9 +36,5 @@ module.exports = {
 
     ]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.BASE_NAME': JSON.stringify('/portfolio/')
-    })
-  ]
+
 }

@@ -1,0 +1,35 @@
+services:
+  
+  redis:
+    container_name: bpics-redis
+    image: redis
+    ports:
+      - ${BPICS_REDIS_PORT:-6379}:6379
+    profiles:
+      - production
+  
+  server:
+    container_name: bpics-server
+    build:
+      context: ./BlissSlideshow
+    environment:
+      - REDIS_URL=redis://shared-redis:6379/0
+    ports:
+      - ${BPICS_SERVER_PORT:-8000}:8000
+    volumes:
+      - ./build:/app/build
+    command: /start-server.sh
+    profiles:
+      - production
+
+  frontend-build:
+    container_name: bpics-frontend-build
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./build:/src/build
+    command: npx webpack --config /src/webpack.config.js
+    profiles:
+      - build
