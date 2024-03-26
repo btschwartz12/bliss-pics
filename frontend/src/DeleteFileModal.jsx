@@ -23,7 +23,7 @@ function DeleteFileModal({ show, handleClose, onSubmit, photo }) {
         setIsSubmitting(true);
         setErrorAlert(null);
 
-        fetch('http://localhost:8000/api/v1/pics/' + photo.metadata.id, {
+        fetch('https://icestationzebraassociates.live/api/v1/pics/' + photo.metadata.id, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,

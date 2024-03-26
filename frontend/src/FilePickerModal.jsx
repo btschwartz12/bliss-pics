@@ -27,7 +27,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
         formData.append('image', selectedFile);
 
 
-        fetch('http://localhost:8000/api/v1/pics/', {
+        fetch('https://icestationzebraassociates.live/api/v1/pics/', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
