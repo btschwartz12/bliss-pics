@@ -42,7 +42,7 @@ export const App = () => {
   }, []);
 
   const fetchData = () => {
-    const url = "https://icestationzebraassociates.live/api/v1/pics";
+    const url = "https://icestationzebraassociates.live/api/v1/pics/";
   
     fetch(url, { credentials: "same-origin" })
       .then((response) => {
