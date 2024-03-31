@@ -13,7 +13,7 @@ services:
     build:
       context: ./BlissSlideshow
     environment:
-      - REDIS_URL=redis://shared-redis:6379/0
+      - REDIS_URL=redis://redis:6379/0
     ports:
       - ${BPICS_SERVER_PORT:-8000}:8000
     volumes:
