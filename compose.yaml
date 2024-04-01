@@ -4,7 +4,7 @@ services:
     container_name: bpics-redis
     image: redis
     ports:
-      - ${BPICS_REDIS_PORT:-6379}:6379
+      - ${BPICS_REDIS_PORT}:6379
     profiles:
       - production
   
@@ -15,7 +15,7 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379/0
     ports:
-      - ${BPICS_SERVER_PORT:-8000}:8000
+      - ${BPICS_SERVER_PORT}:8000
     volumes:
       - ./build:/app/build
     command: /start-server.sh
