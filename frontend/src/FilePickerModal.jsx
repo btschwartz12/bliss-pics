@@ -27,7 +27,7 @@ function ImagePicker({ show, handleClose, onSubmit }) {
         formData.append('image', selectedFile);
 
 
-        fetch('https://btschwartz.com/api/v1/pics/', {
+        fetch('https://api.btschwartz.com/api/v1/pics/', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,

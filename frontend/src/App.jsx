@@ -42,9 +42,9 @@ export const App = () => {
   }, []);
 
   const fetchData = () => {
-    const url = "https://btschwartz.com/api/v1/pics/";
+    const url = "https://api.btschwartz.com/api/v1/pics/";
   
-    fetch(url, { credentials: "same-origin" })
+    fetch(url)
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
         return response.json();
@@ -56,7 +56,7 @@ export const App = () => {
             .map((photo) => {
               
               return {
-                src: 'https://btschwartz.com' + photo.fetchUrl,
+                src: 'https://api.btschwartz.com' + photo.fetchUrl,
                 width: photo.width,
                 height: photo.height,
                 metadata: {
@@ -132,7 +132,7 @@ export const App = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div className='button-container-left'>
               
-                <a style={styles.container} target="_blank" href="https://btschwartz.com/api/v1/auth/login" >
+                <a style={styles.container} target="_blank" href="https://api.btschwartz.com/api/v1/auth/login" >
                 <AwesomeButton type='primary' >
                   Get Access Token
                 </AwesomeButton>

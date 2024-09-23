@@ -23,7 +23,7 @@ function DeleteFileModal({ show, handleClose, onSubmit, photo }) {
         setIsSubmitting(true);
         setErrorAlert(null);
 
-        fetch('https://btschwartz.com/api/v1/pics/' + photo.metadata.id, {
+        fetch('https://api.btschwartz.com/api/v1/pics/' + photo.metadata.id, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,

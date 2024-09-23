@@ -10,7 +10,7 @@ const ImageSlide = ({ file, token, index }) => {
     const [imageSrc, setImageSrc] = useState(null);
   
     useEffect(() => {
-      fetch(`https://btschwartz.com/api/v1/pics/image/${file}`, {
+      fetch(`https://api.btschwartz.com/api/v1/pics/image/${file}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -51,7 +51,7 @@ const Example = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        fetch("https://btschwartz.com/api/v1/pics/gene", {
+        fetch("https://api.btschwartz.com/api/v1/pics/gene", {
             method: "POST",
             headers: {
                 'Authorization': `Bearer ${token}`,
