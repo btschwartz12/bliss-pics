@@ -17,7 +17,7 @@ redis_url = os.getenv("REDIS_URL")
 limiter = Limiter(
     app=app,
     key_func=get_remote_address,
-    default_limits=["10 per minute", "50 per hour"],
+    default_limits=["50 per minute", "200 per hour"],
     storage_uri=redis_url
 )
 
